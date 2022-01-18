@@ -1,10 +1,10 @@
-package fact.it.backendvanroey;
+package fact.it.project40backendvanroey;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class BackendVanroeyApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() {

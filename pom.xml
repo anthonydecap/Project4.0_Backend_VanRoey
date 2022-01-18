@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>fact.it</groupId>
-    <artifactId>backend-vanroey</artifactId>
+    <artifactId>Project40BackendVanRoey</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>backend-vanroey</name>
-    <description>backend-vanroey</description>
+    <name>Project4.0_Backend_VanRoey</name>
+    <description>Project4.0_Backend_VanRoey</description>
     <properties>
         <java.version>11</java.version>
     </properties>
