@@ -1,13 +1,14 @@
 package fact.it.project40backendvanroey.controller;
 
+import fact.it.project40backendvanroey.model.Tag;
 import fact.it.project40backendvanroey.model.Tracker;
 import fact.it.project40backendvanroey.repository.TrackerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
+import javax.sound.midi.Track;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,17 +24,44 @@ public class TrackerController {
             trackerRepository.save(new Tracker("Security gate", true));
             trackerRepository.save(new Tracker("Smart bord", true));
         }
-
-        //System.out.println(bookRepository.findBookByISBN("687468435454").getTitle());
     }
 
     @GetMapping("/trackers")
-    public List<Tracker> getTrackers(){
+    public List<Tracker> getTrackers() {
         return trackerRepository.findAll();
     }
 
-    @GetMapping("/trackers/{TrackerID}")
-    public Optional<Tracker> getBookByTrackerID(@PathVariable int trackerID){
-        return trackerRepository.findById(trackerID);
+    @GetMapping("/trackers/{id}")
+    public Tracker getTrackerByTrackerID(@PathVariable int trackerID){
+        return trackerRepository.findTrackerByTrackerID(trackerID);
+    }
+
+    @PostMapping("/trackers")
+    public Tracker addTracker(@RequestBody Tracker tracker){
+        trackerRepository.save(tracker);
+        return tracker;
+    }
+
+    @PutMapping("/trackers")
+    public Tracker updateTracker(@RequestBody Tracker tracker){
+        Tracker retrievedTracker = trackerRepository.findTrackerByTrackerID(tracker.getTrackerID());
+
+        retrievedTracker.setName(tracker.getName());
+        retrievedTracker.setStatus(tracker.isStatus());
+        trackerRepository.save(retrievedTracker);
+
+        return retrievedTracker;
+    }
+
+    @DeleteMapping("/trackers/{id}")
+    public ResponseEntity deleteTracker(@PathVariable int trackerID){
+        Tracker tracker = trackerRepository.findTrackerByTrackerID(trackerID);
+
+        if(tracker!=null){
+            trackerRepository.delete(tracker);
+            return ResponseEntity.ok().build();
+        }else{
+            return ResponseEntity.notFound().build();
+        }
     }
 }
