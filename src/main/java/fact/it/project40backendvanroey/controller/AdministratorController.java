@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-public class ControllerAdministrator {
+public class AdministratorController {
 
     @Autowired
     private AdministratorRepository administratorRepository;
@@ -20,7 +20,7 @@ public class ControllerAdministrator {
 
     @GetMapping("/administrators/{id}")
     public Administrator getAdminById(@PathVariable int id){
-        return administratorRepository.findAdministratorById(id);
+        return administratorRepository.findAdministratorByAdministratorId(id);
     }
 
     @PostMapping("/administrators")
@@ -32,7 +32,7 @@ public class ControllerAdministrator {
 
     @PutMapping("/administrators")
     public Administrator updateAdmin(@RequestBody Administrator administrator){
-        Administrator update = administratorRepository.findAdministratorById(administrator.getId());
+        Administrator update = administratorRepository.findAdministratorByAdministratorId(administrator.getAdministratorId());
 
         update.setName(administrator.getName());
         update.setLastname(administrator.getLastname());
@@ -46,7 +46,7 @@ public class ControllerAdministrator {
 
     @DeleteMapping("/administrators/{id}")
     public List<Administrator> deleteAmdin(@RequestParam int id){
-        Administrator administrator = administratorRepository.findAdministratorById(id);
+        Administrator administrator = administratorRepository.findAdministratorByAdministratorId(id);
 
         if(administrator!=null){
             administratorRepository.delete(administrator);
