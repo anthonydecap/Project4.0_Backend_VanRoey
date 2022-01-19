@@ -1,9 +1,11 @@
 package fact.it.project40backendvanroey.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import org.apache.tomcat.util.security.MD5Encoder;
+
+import javax.persistence.*;
+import java.nio.charset.StandardCharsets;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 @Entity
 public class Administrator {
@@ -13,6 +15,7 @@ public class Administrator {
     private String name;
     private String lastname;
     private String password;
+    @Column(unique = true)
     private String email;
 
     public Administrator() {
@@ -54,7 +57,23 @@ public class Administrator {
     }
 
     public void setPassword(String password) {
-        this.password = password;
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+
+            messageDigest.update(password.getBytes());
+            byte[] resultByteArray = messageDigest.digest();
+
+            StringBuilder sb = new StringBuilder();
+
+            for(byte b: resultByteArray) {
+                sb.append(String.format("%02x", b));
+            }
+
+            this.password = sb.toString();
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        }
     }
 
     public String getEmail() {
