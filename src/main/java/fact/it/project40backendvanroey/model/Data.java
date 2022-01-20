@@ -5,7 +5,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.sql.Time;
-import java.time.LocalDateTime;
 
 @Entity
 public class Data {
@@ -17,12 +16,12 @@ public class Data {
 
     private int visitorTagID;
 
-    private LocalDateTime time;
+    private Time time;
 
     public Data() {
     }
 
-    public Data(int trackerID, int visitorTagID, LocalDateTime time) {
+    public Data(int trackerID, int visitorTagID, Time time) {
         this.trackerID = trackerID;
         this.visitorTagID = visitorTagID;
         this.time = time;
@@ -52,11 +51,11 @@ public class Data {
         this.visitorTagID = visitorTagID;
     }
 
-    public LocalDateTime getTime() {
+    public Time getTime() {
         return time;
     }
 
-    public void setTime(LocalDateTime time) {
+    public void setTime(Time time) {
         this.time = time;
     }
 }
