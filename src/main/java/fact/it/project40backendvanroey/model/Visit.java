@@ -1,10 +1,12 @@
 package fact.it.project40backendvanroey.model;
 
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 public class Visit {
@@ -19,6 +21,9 @@ public class Visit {
     private LocalDateTime date;
 
     private boolean status;
+
+    @OneToMany(mappedBy="visit")
+    private List<Visitor> visitors;
 
     public Visit() {
     }
