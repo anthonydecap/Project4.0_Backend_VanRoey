@@ -1,6 +1,11 @@
 package fact.it.project40backendvanroey.controller;
 
+import fact.it.project40backendvanroey.model.Tag;
+import fact.it.project40backendvanroey.model.Visitor;
 import fact.it.project40backendvanroey.model.VisitorTag;
+import fact.it.project40backendvanroey.model.VisitorTagInfo;
+import fact.it.project40backendvanroey.repository.TagRepository;
+import fact.it.project40backendvanroey.repository.VisitorRepository;
 import fact.it.project40backendvanroey.repository.VisitorTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +17,8 @@ public class VisitorTagController {
 
     @Autowired
     private VisitorTagRepository visitorTagRepository;
+    private VisitorRepository visitorRepository;
+    private TagRepository tagRepository;
 
     @GetMapping("/visitor/tags")
     public List<VisitorTag> all(){
@@ -21,6 +28,23 @@ public class VisitorTagController {
     @GetMapping("/visitor/tags/{id}")
     public VisitorTag findById(@PathVariable int id){
         return visitorTagRepository.findVisitorTagByVisitorTagId(id);
+    }
+
+    @GetMapping("/visitor/tags/info/{id}")
+    public VisitorTagInfo info(@PathVariable int id){
+        VisitorTag visitorTag = visitorTagRepository.findVisitorTagByVisitorTagId(id);
+        Visitor visitor = visitorRepository.findVisitorByVisitorID(visitorTag.getVisitorId());
+        Tag tag = tagRepository.findTagByTagId(visitorTag.getTagId());
+
+        VisitorTagInfo visitorTagInfo = new VisitorTagInfo();
+
+        visitorTagInfo.setVisitorName(visitor.getName());
+        visitorTagInfo.setVisitorLastname(visitor.getLastname());
+        visitorTagInfo.setVisitorEmail(visitor.getEmail());
+        visitorTagInfo.setTagAddress(tag.getAddress());
+        visitorTagInfo.setTagStatus(tag.getAddress());
+
+        return visitorTagInfo;
     }
 
     @PostMapping("/visitor/tags")

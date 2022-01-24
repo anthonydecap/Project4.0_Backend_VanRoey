@@ -41,6 +41,17 @@ public class TagController {
         return update;
     }
 
+    @PutMapping("/tags/status")
+    public Tag updateStatus(@RequestBody Tag tag){
+        Tag update = tagRepository.findTagByTagId(tag.getTagId());
+
+        update.setAddress(tag.getAddress());
+        update.setStatus(!tag.isStatus());
+        tagRepository.save(update);
+
+        return update;
+    }
+
     @DeleteMapping("/tags/{id}")
     public List<Tag> deleteTag(@PathVariable int id){
         Tag tag = tagRepository.findTagByTagId(id);
