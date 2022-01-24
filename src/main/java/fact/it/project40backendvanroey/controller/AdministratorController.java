@@ -45,7 +45,6 @@ public class AdministratorController {
 
         update.setName(administrator.getName());
         update.setLastname(administrator.getLastname());
-        update.setPassword(administrator.getPassword());
         update.setEmail(administrator.getEmail());
 
         administratorRepository.save(update);

@@ -24,7 +24,6 @@ public class Administrator {
     public Administrator(String name, String lastname, String password, String email) {
         this.name = name;
         this.lastname = lastname;
-        this.password = password;
         this.email = email;
     }
 
