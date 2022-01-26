@@ -33,8 +33,8 @@ public class VisitorController {
     }
 
     @GetMapping("/visitors/{id}")
-    public Visitor getVisitorByVisitorID(@PathVariable int visitorID){
-        return visitorRepository.findVisitorByVisitorID(visitorID);
+    public Visitor getVisitorByVisitorID(@PathVariable int id){
+        return visitorRepository.findVisitorByVisitorID(id);
     }
 
     @PostMapping("/visitors")
@@ -57,14 +57,13 @@ public class VisitorController {
     }
 
     @DeleteMapping("/visitors/{id}")
-    public ResponseEntity deleteVisitor(@PathVariable int visitorID){
-        Visitor visitor = visitorRepository.findVisitorByVisitorID(visitorID);
+    public List<Visitor> deleteVisitor(@PathVariable int id){
+        Visitor visitor = visitorRepository.findVisitorByVisitorID(id);
 
         if(visitor!=null){
             visitorRepository.delete(visitor);
-            return ResponseEntity.ok().build();
-        }else{
-            return ResponseEntity.notFound().build();
         }
+
+        return visitorRepository.findAll();
     }
 }
