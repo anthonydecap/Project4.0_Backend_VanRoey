@@ -1,5 +1,6 @@
 package fact.it.project40backendvanroey.controller;
 
+import fact.it.project40backendvanroey.model.Administrator;
 import fact.it.project40backendvanroey.model.Company;
 import fact.it.project40backendvanroey.model.Visit;
 import fact.it.project40backendvanroey.repository.CompanyRepository;
@@ -33,8 +34,8 @@ public class VisitController {
     }
 
     @GetMapping("/visits/{id}")
-    public Visit getVisitByVisitID(@PathVariable int visitID){
-        return visitRepository.findVisitByVisitID(visitID);
+    public Visit getVisitByVisitID(@PathVariable int id){
+        return visitRepository.findVisitByVisitID(id);
     }
 
     @PostMapping("/visits")
@@ -57,14 +58,14 @@ public class VisitController {
     }
 
     @DeleteMapping("/visits/{id}")
-    public ResponseEntity deleteVisit(@PathVariable int visitID){
-        Visit visit = visitRepository.findVisitByVisitID(visitID);
+    public List<Visit> deleteVisit(@PathVariable int id){
+        Visit visit = visitRepository.findVisitByVisitID(id);
 
         if(visit!=null){
             visitRepository.delete(visit);
-            return ResponseEntity.ok().build();
-        }else{
-            return ResponseEntity.notFound().build();
+
         }
+
+        return visitRepository.findAll();
     }
 }
