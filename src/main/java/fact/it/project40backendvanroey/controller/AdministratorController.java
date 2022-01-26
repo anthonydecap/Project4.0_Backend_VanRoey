@@ -26,7 +26,11 @@ public class AdministratorController {
     }
 
     @GetMapping("/administrators/login")
-    public Boolean login(@RequestBody Login login){
+    public boolean login(@RequestParam String email, @RequestParam String password){
+        Login login = new Login();
+        login.setEmail(email);
+        login.setPassword(password);
+
         Administrator administrator = administratorRepository.findAdministratorByEmail(login.getEmail());
 
         return administrator != null && Objects.equals(administrator.getPassword(), login.getPassword());
