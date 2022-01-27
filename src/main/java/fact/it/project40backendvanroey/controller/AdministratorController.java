@@ -25,6 +25,11 @@ public class AdministratorController {
         return administratorRepository.findAdministratorByAdministratorId(id);
     }
 
+    @GetMapping("/administrators/account/{email}")
+    public Administrator getAdminByMail(@PathVariable String email){
+        return administratorRepository.findAdministratorByEmail(email);
+    }
+
     @GetMapping("/administrators/login")
     public boolean login(@RequestParam String email, @RequestParam String password){
         Login login = new Login();
