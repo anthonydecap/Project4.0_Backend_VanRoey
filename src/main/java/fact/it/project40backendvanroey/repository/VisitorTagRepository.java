@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface VisitorTagRepository extends JpaRepository<VisitorTag, Integer> {
     VisitorTag findVisitorTagByVisitorTagId(int id);
+    VisitorTag findFirstByVisitorId(int id);
 }

@@ -10,14 +10,18 @@ import fact.it.project40backendvanroey.repository.VisitorTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 public class VisitorTagController {
 
     @Autowired
     private VisitorTagRepository visitorTagRepository;
+
+    @Autowired
     private VisitorRepository visitorRepository;
+
+    @Autowired
     private TagRepository tagRepository;
 
     @GetMapping("/visitor/tags")
@@ -28,6 +32,17 @@ public class VisitorTagController {
     @GetMapping("/visitor/tags/{id}")
     public VisitorTag findById(@PathVariable int id){
         return visitorTagRepository.findVisitorTagByVisitorTagId(id);
+    }
+
+    @GetMapping("/visitor/tags/visit/{id}")
+    public List<VisitorTag> list(@PathVariable int id){
+        List<VisitorTag> list = new ArrayList<>();
+
+        List<Visitor> visitors = visitorRepository.findAllByVisitID(id);
+
+        visitors.forEach(visitor -> list.add(visitorTagRepository.findFirstByVisitorId(visitor.getVisitorID())));
+
+        return list;
     }
 
     @GetMapping("/visitor/tags/info/{id}")
