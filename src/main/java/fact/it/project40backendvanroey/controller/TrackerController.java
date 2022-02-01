@@ -40,6 +40,7 @@ public class TrackerController {
         Tracker retrievedTracker = trackerRepository.findTrackerByTrackerID(tracker.getTrackerID());
 
         retrievedTracker.setName(tracker.getName());
+        retrievedTracker.setAddress(tracker.getAddress());
         retrievedTracker.setStatus(tracker.isStatus());
         trackerRepository.save(retrievedTracker);
 
