@@ -8,6 +8,12 @@ public class Visitor {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int visitorID;
 
+    @Transient
+    private int visitID;
+
+    @Transient
+    private int tagID;
+
     private String name;
 
     private String lastname;
@@ -21,6 +27,7 @@ public class Visitor {
     private Tag tag;
 
     public Visitor() {
+
     }
 
     public Visitor(String name, String lastname, String email) {
@@ -62,13 +69,14 @@ public class Visitor {
         this.email = email;
     }
 
-
     public Visit getVisit() {
         return visit;
     }
 
     public void setVisit(Visit visit) {
+
         this.visit = visit;
+        this.visitID = visit.getVisitID();
     }
 
     public Tag getTag() {
@@ -76,6 +84,24 @@ public class Visitor {
     }
 
     public void setTag(Tag tag) {
+
         this.tag = tag;
+        this.tagID = tag.getTagID();
+    }
+
+    public int getVisitID() {
+        return visitID;
+    }
+
+    public void setVisitID(int visitID) {
+        this.visitID = visitID;
+    }
+
+    public int getTagID() {
+        return tagID;
+    }
+
+    public void setTagID(int tagID) {
+        this.tagID = tagID;
     }
 }

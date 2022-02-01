@@ -11,6 +11,9 @@ public class Visit {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int visitID;
 
+    @Transient
+    private int companyID;
+
     private String email;
 
     private LocalDateTime date;
@@ -67,5 +70,14 @@ public class Visit {
 
     public void setCompany(Company company) {
         this.company = company;
+        setCompanyID(company.getCompanyID());
+    }
+
+    public int getCompanyID() {
+        return companyID;
+    }
+
+    public void setCompanyID(int companyID) {
+        this.companyID = companyID;
     }
 }

@@ -19,19 +19,29 @@ public class VisitController {
     @Autowired
     private VisitRepository visitRepository;
 
+    @Autowired
+    private CompanyRepository companyRepository;
+
     @GetMapping("/visits")
     public List<Visit> getVisits() {
-        return visitRepository.findAll();
+        List<Visit> list = visitRepository.findAll();
+        list.forEach((visit) -> visit.setCompanyID(visit.getCompany().getCompanyID()));
+
+        return list;
     }
 
     @GetMapping("/visits/{id}")
     public Visit getVisitByVisitID(@PathVariable int id){
-        return visitRepository.findVisitByVisitID(id);
+        Visit visit = visitRepository.findVisitByVisitID(id);
+        visit.setCompanyID(visit.getCompany().getCompanyID());
+        return visit;
     }
 
     @PostMapping("/visits")
     public Visit addVisit(@RequestBody Visit visit){
+        visit.setCompany(companyRepository.findCompanyByCompanyID(visit.getCompanyID()));
         visitRepository.save(visit);
+
         return visit;
     }
 
@@ -41,6 +51,8 @@ public class VisitController {
         retrievedVisit.setEmail(visit.getEmail());
         retrievedVisit.setDate(visit.getDate());
         retrievedVisit.setStatus(visit.isStatus());
+        retrievedVisit.setCompanyID(visit.getCompanyID());
+        retrievedVisit.setCompany(companyRepository.findCompanyByCompanyID(retrievedVisit.getCompanyID()));
         visitRepository.save(retrievedVisit);
 
         return retrievedVisit;
@@ -48,13 +60,15 @@ public class VisitController {
 
     @DeleteMapping("/visits/{id}")
     public List<Visit> deleteVisit(@PathVariable int id){
-        Visit visit = visitRepository.findVisitByVisitID(id);
+        Visit visit_to_delete = visitRepository.findVisitByVisitID(id);
 
-        if(visit!=null){
-            visitRepository.delete(visit);
-
+        if(visit_to_delete!=null){
+            visitRepository.delete(visit_to_delete);
         }
 
-        return visitRepository.findAll();
+        List<Visit> list = visitRepository.findAll();
+        list.forEach((visit) -> visit.setCompanyID(visit.getCompany().getCompanyID()));
+
+        return list;
     }
 }

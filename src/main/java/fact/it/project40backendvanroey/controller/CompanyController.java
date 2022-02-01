@@ -23,8 +23,8 @@ public class CompanyController {
     }
 
     @GetMapping("/companies/{id}")
-    public Company getCompanyByCompanyID(@PathVariable int companyID){
-        return companyRepository.findCompanyByCompanyID(companyID);
+    public Company getCompanyByCompanyID(@PathVariable int id){
+        return companyRepository.findCompanyByCompanyID(id);
     }
 
     @PostMapping("/companies")
