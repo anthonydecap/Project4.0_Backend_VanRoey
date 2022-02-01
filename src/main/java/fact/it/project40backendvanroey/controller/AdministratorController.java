@@ -43,7 +43,9 @@ public class AdministratorController {
 
     @PostMapping("/administrators")
     public Administrator createAdmin(@RequestBody Administrator administrator){
-        administratorRepository.save(administrator);
+        if (administratorRepository.findAdministratorByEmail(administrator.getEmail()) == null) {
+            administratorRepository.save(administrator);
+        }
 
         return administrator;
     }
