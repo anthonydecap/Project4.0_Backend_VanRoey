@@ -1,6 +1,9 @@
 package fact.it.project40backendvanroey.controller;
 
+import fact.it.project40backendvanroey.model.Visit;
 import fact.it.project40backendvanroey.model.Visitor;
+import fact.it.project40backendvanroey.repository.TagRepository;
+import fact.it.project40backendvanroey.repository.VisitRepository;
 import fact.it.project40backendvanroey.repository.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,18 +16,32 @@ public class VisitorController {
     @Autowired
     private VisitorRepository visitorRepository;
 
+    @Autowired
+    private VisitRepository visitRepository;
+
+    @Autowired
+    private TagRepository tagRepository;
+
     @GetMapping("/visitors")
     public List<Visitor> getVisitors() {
-        return visitorRepository.findAll();
+        List<Visitor> list = visitorRepository.findAll();
+        list.forEach((visitor) -> visitor.setTagID(visitor.getTag().getTagID()));
+        list.forEach((visitor) -> visitor.setVisitID(visitor.getVisit().getVisitID()));
+        return list;
     }
 
     @GetMapping("/visitors/{id}")
     public Visitor getVisitorByVisitorID(@PathVariable int id){
+        Visitor visitor = visitorRepository.findVisitorByVisitorID(id);
+        visitor.setTagID(visitor.getTag().getTagID());
+        visitor.setVisitID(visitor.getVisit().getVisitID());
         return visitorRepository.findVisitorByVisitorID(id);
     }
 
     @PostMapping("/visitors")
     public Visitor addVisitor(@RequestBody Visitor visitor){
+        visitor.setTag(tagRepository.findTagByTagID(visitor.getTagID()));
+        visitor.setVisit(visitRepository.findVisitByVisitID(visitor.getVisitID()));
         visitorRepository.save(visitor);
         return visitor;
     }
@@ -36,6 +53,10 @@ public class VisitorController {
         retrievedVisitor.setName(visitor.getName());
         retrievedVisitor.setLastname(visitor.getLastname());
         retrievedVisitor.setEmail(visitor.getEmail());
+        retrievedVisitor.setVisitorID(visitor.getVisitorID());
+        retrievedVisitor.setTagID(visitor.getVisitID());
+        retrievedVisitor.setTag(tagRepository.findTagByTagID(retrievedVisitor.getTagID()));
+        retrievedVisitor.setVisit(visitRepository.findVisitByVisitID(retrievedVisitor.getVisitID()));
         visitorRepository.save(retrievedVisitor);
 
         return retrievedVisitor;
@@ -43,12 +64,16 @@ public class VisitorController {
 
     @DeleteMapping("/visitors/{id}")
     public List<Visitor> deleteVisitor(@PathVariable int id){
-        Visitor visitor = visitorRepository.findVisitorByVisitorID(id);
+        Visitor visitor_to_delete = visitorRepository.findVisitorByVisitorID(id);
 
-        if(visitor!=null){
-            visitorRepository.delete(visitor);
+        if(visitor_to_delete!=null){
+            visitorRepository.delete(visitor_to_delete);
         }
 
-        return visitorRepository.findAll();
+        List<Visitor> list = visitorRepository.findAll();
+        list.forEach((visitor) -> visitor.setTagID(visitor.getTag().getTagID()));
+        list.forEach((visitor) -> visitor.setVisitID(visitor.getVisit().getVisitID()));
+
+        return list;
     }
 }

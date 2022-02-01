@@ -9,6 +9,12 @@ public class Data {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int dataID;
 
+    @Transient
+    private int visitorID;
+
+    @Transient
+    private int trackerID;
+
     private LocalDateTime time;
 
     @ManyToOne
@@ -44,7 +50,9 @@ public class Data {
     }
 
     public void setTracker(Tracker tracker) {
+
         this.tracker = tracker;
+        this.trackerID = tracker.getTrackerID();
     }
 
     public Visitor getVisitor() {
@@ -52,6 +60,24 @@ public class Data {
     }
 
     public void setVisitor(Visitor visitor) {
+
         this.visitor = visitor;
+        this.visitorID = visitor.getVisitorID();
+    }
+
+    public int getVisitorID() {
+        return visitorID;
+    }
+
+    public void setVisitorID(int visitorID) {
+        this.visitorID = visitorID;
+    }
+
+    public int getTrackerID() {
+        return trackerID;
+    }
+
+    public void setTrackerID(int trackerID) {
+        this.trackerID = trackerID;
     }
 }
