@@ -19,15 +19,6 @@ public class VisitController {
     @Autowired
     private VisitRepository visitRepository;
 
-    @PostConstruct
-    public void fillDB(){
-
-        if(visitRepository.count()==0){
-            visitRepository.save(new Visit(1,"ibm@mail.com", LocalDateTime.now(),true));
-            visitRepository.save(new Visit(2,"aii@mail.com", LocalDateTime.now(),false));
-        }
-    }
-
     @GetMapping("/visits")
     public List<Visit> getVisits() {
         return visitRepository.findAll();
@@ -47,8 +38,6 @@ public class VisitController {
     @PutMapping("/visits")
     public Visit updateVisit(@RequestBody Visit visit){
         Visit retrievedVisit = visitRepository.findVisitByVisitID(visit.getVisitID());
-
-        retrievedVisit.setCompanyID(visit.getCompanyID());
         retrievedVisit.setEmail(visit.getEmail());
         retrievedVisit.setDate(visit.getDate());
         retrievedVisit.setStatus(visit.isStatus());

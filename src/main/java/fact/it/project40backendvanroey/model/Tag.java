@@ -8,8 +8,8 @@ import javax.persistence.Id;
 @Entity
 public class Tag {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int tagId;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int tagID;
     private String address;
     private boolean status;
 
@@ -21,12 +21,12 @@ public class Tag {
         this.status = status;
     }
 
-    public int getTagId() {
-        return tagId;
+    public int getTagID() {
+        return tagID;
     }
 
-    public void setTagId(int tagId) {
-        this.tagId = tagId;
+    public void setTagID(int tagID) {
+        this.tagID = tagID;
     }
 
     public String getAddress() {

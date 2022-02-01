@@ -1,10 +1,9 @@
 package fact.it.project40backendvanroey.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Visit {
@@ -12,19 +11,19 @@ public class Visit {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int visitID;
 
-    private int CompanyID;
-
     private String email;
 
     private LocalDateTime date;
 
     private boolean status;
 
+    @ManyToOne
+    private Company company;
+
     public Visit() {
     }
 
-    public Visit(int companyID, String email, LocalDateTime date, boolean status) {
-        CompanyID = companyID;
+    public Visit(String email, LocalDateTime date, boolean status) {
         this.email = email;
         this.date = date;
         this.status = status;
@@ -36,14 +35,6 @@ public class Visit {
 
     public void setVisitID(int visitID) {
         this.visitID = visitID;
-    }
-
-    public int getCompanyID() {
-        return CompanyID;
-    }
-
-    public void setCompanyID(int companyID) {
-        CompanyID = companyID;
     }
 
     public String getEmail() {
@@ -68,5 +59,13 @@ public class Visit {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 }

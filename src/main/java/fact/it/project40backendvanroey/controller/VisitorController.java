@@ -1,17 +1,10 @@
 package fact.it.project40backendvanroey.controller;
 
-import fact.it.project40backendvanroey.model.Company;
-import fact.it.project40backendvanroey.model.Visit;
 import fact.it.project40backendvanroey.model.Visitor;
-import fact.it.project40backendvanroey.model.VisitorTag;
-import fact.it.project40backendvanroey.repository.CompanyRepository;
 import fact.it.project40backendvanroey.repository.VisitorRepository;
-import fact.it.project40backendvanroey.repository.VisitorTagRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RestController
@@ -19,9 +12,6 @@ public class VisitorController {
 
     @Autowired
     private VisitorRepository visitorRepository;
-
-    @Autowired
-    private VisitorTagRepository visitorTagRepository;
 
     @GetMapping("/visitors")
     public List<Visitor> getVisitors() {
@@ -45,7 +35,6 @@ public class VisitorController {
 
         retrievedVisitor.setName(visitor.getName());
         retrievedVisitor.setLastname(visitor.getLastname());
-        retrievedVisitor.setVisitID(visitor.getVisitID());
         retrievedVisitor.setEmail(visitor.getEmail());
         visitorRepository.save(retrievedVisitor);
 
@@ -57,12 +46,6 @@ public class VisitorController {
         Visitor visitor = visitorRepository.findVisitorByVisitorID(id);
 
         if(visitor!=null){
-            VisitorTag visitorTag = visitorTagRepository.findFirstByVisitorId(id);
-
-            if(visitor!=null){
-                visitorTagRepository.delete(visitorTag);
-            }
-
             visitorRepository.delete(visitor);
         }
 

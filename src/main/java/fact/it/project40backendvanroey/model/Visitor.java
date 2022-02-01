@@ -1,9 +1,6 @@
 package fact.it.project40backendvanroey.model;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Visitor {
@@ -11,19 +8,22 @@ public class Visitor {
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int visitorID;
 
-    private int visitID;
-
     private String name;
 
     private String lastname;
 
     private String email;
 
+    @ManyToOne
+    private Visit visit;
+
+    @ManyToOne
+    private Tag tag;
+
     public Visitor() {
     }
 
-    public Visitor(int visitID, String name, String lastname, String email) {
-        this.visitID = visitID;
+    public Visitor(String name, String lastname, String email) {
         this.name = name;
         this.lastname = lastname;
         this.email = email;
@@ -37,13 +37,6 @@ public class Visitor {
         this.visitorID = visitorID;
     }
 
-    public int getVisitID() {
-        return visitID;
-    }
-
-    public void setVisitID(int visitID) {
-        this.visitID = visitID;
-    }
 
     public String getName() {
         return name;
@@ -67,5 +60,22 @@ public class Visitor {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public Visit getVisit() {
+        return visit;
+    }
+
+    public void setVisit(Visit visit) {
+        this.visit = visit;
+    }
+
+    public Tag getTag() {
+        return tag;
+    }
+
+    public void setTag(Tag tag) {
+        this.tag = tag;
     }
 }
