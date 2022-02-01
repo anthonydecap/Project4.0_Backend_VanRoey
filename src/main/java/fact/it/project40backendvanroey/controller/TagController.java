@@ -20,7 +20,7 @@ public class TagController {
 
     @GetMapping("/tags/{id}")
     public Tag findTagById(@PathVariable int id){
-        return tagRepository.findTagByTagId(id);
+        return tagRepository.findTagByTagID(id);
     }
 
     @PostMapping("/tags")
@@ -32,7 +32,7 @@ public class TagController {
 
     @PutMapping("/tags")
     public Tag updateTag(@RequestBody Tag tag){
-        Tag update = tagRepository.findTagByTagId(tag.getTagId());
+        Tag update = tagRepository.findTagByTagID(tag.getTagID());
 
         update.setAddress(tag.getAddress());
         update.setStatus(tag.isStatus());
@@ -43,7 +43,7 @@ public class TagController {
 
     @PutMapping("/tags/status")
     public Tag updateStatus(@RequestBody Tag tag){
-        Tag update = tagRepository.findTagByTagId(tag.getTagId());
+        Tag update = tagRepository.findTagByTagID(tag.getTagID());
 
         update.setAddress(tag.getAddress());
         update.setStatus(!tag.isStatus());
@@ -54,7 +54,7 @@ public class TagController {
 
     @DeleteMapping("/tags/{id}")
     public List<Tag> deleteTag(@PathVariable int id){
-        Tag tag = tagRepository.findTagByTagId(id);
+        Tag tag = tagRepository.findTagByTagID(id);
 
         if (tag!=null){
             tagRepository.delete(tag);

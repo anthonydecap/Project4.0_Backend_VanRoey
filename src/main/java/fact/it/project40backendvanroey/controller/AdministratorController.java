@@ -22,7 +22,7 @@ public class AdministratorController {
 
     @GetMapping("/administrators/{id}")
     public Administrator getAdminById(@PathVariable int id){
-        return administratorRepository.findAdministratorByAdministratorId(id);
+        return administratorRepository.findAdministratorByAdministratorID(id);
     }
 
     @GetMapping("/administrators/account/{email}")
@@ -52,7 +52,7 @@ public class AdministratorController {
 
     @PutMapping("/administrators")
     public Administrator updateAdmin(@RequestBody Administrator administrator){
-        Administrator update = administratorRepository.findAdministratorByAdministratorId(administrator.getAdministratorId());
+        Administrator update = administratorRepository.findAdministratorByAdministratorID(administrator.getAdministratorID());
 
         update.setName(administrator.getName());
         update.setLastname(administrator.getLastname());
@@ -64,8 +64,8 @@ public class AdministratorController {
     }
 
     @DeleteMapping("/administrators/{id}")
-    public List<Administrator> deleteAmdin(@PathVariable int id){
-        Administrator administrator = administratorRepository.findAdministratorByAdministratorId(id);
+    public List<Administrator> deleteAdmin(@PathVariable int id){
+        Administrator administrator = administratorRepository.findAdministratorByAdministratorID(id);
 
         if(administrator!=null){
             administratorRepository.delete(administrator);

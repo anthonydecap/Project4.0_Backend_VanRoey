@@ -11,7 +11,7 @@ import java.security.NoSuchAlgorithmException;
 public class Administrator {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int administratorId;
+    private int administratorID;
     private String name;
     private String lastname;
     private String password;
@@ -27,12 +27,12 @@ public class Administrator {
         this.email = email;
     }
 
-    public int getAdministratorId() {
-        return administratorId;
+    public int getAdministratorID() {
+        return administratorID;
     }
 
-    public void setAdministratorId(int administratorId) {
-        this.administratorId = administratorId;
+    public void setAdministratorID(int administratorID) {
+        this.administratorID = administratorID;
     }
 
     public String getName() {

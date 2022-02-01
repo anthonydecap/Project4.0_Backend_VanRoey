@@ -13,14 +13,18 @@ public class Tracker {
 
     private String name;
 
+    private String address;
+
     private boolean status;
 
     public Tracker () {
 
     }
 
-    public Tracker(String name, boolean status) {
+    public Tracker(int trackerID, String name, String address, boolean status) {
+        this.trackerID = trackerID;
         this.name = name;
+        this.address = address;
         this.status = status;
     }
 
@@ -46,5 +50,13 @@ public class Tracker {
 
     public void setStatus(boolean status) {
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

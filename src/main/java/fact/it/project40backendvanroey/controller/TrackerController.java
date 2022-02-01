@@ -18,13 +18,6 @@ public class TrackerController {
     @Autowired
     private TrackerRepository trackerRepository;
 
-    @PostConstruct
-    public void fillDB(){
-        if(trackerRepository.count()==0){
-            trackerRepository.save(new Tracker("Security gate", true));
-            trackerRepository.save(new Tracker("Smart bord", true));
-        }
-    }
 
     @GetMapping("/trackers")
     public List<Tracker> getTrackers() {

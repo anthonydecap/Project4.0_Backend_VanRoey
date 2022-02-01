@@ -17,14 +17,6 @@ public class CompanyController {
     @Autowired
     private CompanyRepository companyRepository;
 
-    @PostConstruct
-    public void fillDB(){
-        if(companyRepository.count()==0){
-            companyRepository.save(new Company("IBM"));
-            companyRepository.save(new Company("AI Inovations"));
-        }
-    }
-
     @GetMapping("/companies")
     public List<Company> getCompanies() {
         return companyRepository.findAll();

@@ -36,9 +36,6 @@ public class DataController {
     @PutMapping("/data")
     public Data updateData(@RequestBody Data data){
         Data retrievedData = dataRepository.findDataByDataID(data.getDataID());
-
-        retrievedData.setTrackerID(data.getTrackerID());
-        retrievedData.setVisitorTagID(data.getVisitorTagID());
         retrievedData.setTime(data.getTime());
         dataRepository.save(retrievedData);
 
