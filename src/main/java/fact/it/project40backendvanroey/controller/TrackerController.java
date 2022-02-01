@@ -25,8 +25,8 @@ public class TrackerController {
     }
 
     @GetMapping("/trackers/{id}")
-    public Tracker getTrackerByTrackerID(@PathVariable int trackerID){
-        return trackerRepository.findTrackerByTrackerID(trackerID);
+    public Tracker getTrackerByTrackerID(@PathVariable int id){
+        return trackerRepository.findTrackerByTrackerID(id);
     }
 
     @PostMapping("/trackers")
