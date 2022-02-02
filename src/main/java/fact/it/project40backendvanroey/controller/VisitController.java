@@ -37,6 +37,13 @@ public class VisitController {
         return visit;
     }
 
+    @GetMapping("/visits/active")
+    public Visit getActiveVisit(){
+        Visit visit = visitRepository.findFirstByStatus(true);
+        visit.setCompanyID(visit.getCompany().getCompanyID());
+        return visit;
+    }
+
     @PostMapping("/visits")
     public Visit addVisit(@RequestBody Visit visit){
         visit.setCompany(companyRepository.findCompanyByCompanyID(visit.getCompanyID()));
