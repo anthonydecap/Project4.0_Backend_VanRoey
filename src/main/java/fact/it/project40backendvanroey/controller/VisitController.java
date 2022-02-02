@@ -58,6 +58,19 @@ public class VisitController {
         return retrievedVisit;
     }
 
+    @PutMapping("/visits/status")
+    public Visit updateVisitStatus(@RequestBody Visit visit){
+        Visit retrievedVisit = visitRepository.findVisitByVisitID(visit.getVisitID());
+        retrievedVisit.setEmail(visit.getEmail());
+        retrievedVisit.setDate(visit.getDate());
+        retrievedVisit.setStatus(!visit.isStatus());
+        retrievedVisit.setCompanyID(visit.getCompanyID());
+        retrievedVisit.setCompany(companyRepository.findCompanyByCompanyID(retrievedVisit.getCompanyID()));
+        visitRepository.save(retrievedVisit);
+
+        return retrievedVisit;
+    }
+
     @DeleteMapping("/visits/{id}")
     public List<Visit> deleteVisit(@PathVariable int id){
         Visit visit_to_delete = visitRepository.findVisitByVisitID(id);
