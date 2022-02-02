@@ -30,6 +30,15 @@ public class VisitorController {
         return list;
     }
 
+    @GetMapping("/visitors/visit/active")
+    public List<Visitor> getVisitorsFromActiveVisit() {
+        Visit visit = visitRepository.findFirstByStatus(true);
+        List<Visitor> list = visitorRepository.findVisitorByVisit(visit);
+        list.forEach((visitor) -> visitor.setTagID(visitor.getTag().getTagID()));
+        list.forEach((visitor) -> visitor.setVisitID(visitor.getVisit().getVisitID()));
+        return list;
+    }
+
     @GetMapping("/visitors/{id}")
     public Visitor getVisitorByVisitorID(@PathVariable int id){
         Visitor visitor = visitorRepository.findVisitorByVisitorID(id);
