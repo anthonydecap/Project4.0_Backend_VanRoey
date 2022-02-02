@@ -8,4 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TrackerRepository extends JpaRepository<Tracker, Integer> {
     Tracker findTrackerByTrackerID(int id);
+    Tracker findTrackerByAddressAndStatus(String address,boolean status);
 }
