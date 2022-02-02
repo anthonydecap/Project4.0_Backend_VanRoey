@@ -56,14 +56,14 @@ public class VisitorController {
     }
 
     @PutMapping("/visitors")
-    public Visitor updateCompany(@RequestBody Visitor visitor){
+    public Visitor updateVisitor(@RequestBody Visitor visitor){
         Visitor retrievedVisitor = visitorRepository.findVisitorByVisitorID(visitor.getVisitorID());
 
         retrievedVisitor.setName(visitor.getName());
         retrievedVisitor.setLastname(visitor.getLastname());
         retrievedVisitor.setEmail(visitor.getEmail());
-        retrievedVisitor.setVisitorID(visitor.getVisitorID());
-        retrievedVisitor.setTagID(visitor.getVisitID());
+        retrievedVisitor.setVisitID(visitor.getVisitID());
+        retrievedVisitor.setTagID(visitor.getTagID());
         retrievedVisitor.setTag(tagRepository.findTagByTagID(retrievedVisitor.getTagID()));
         retrievedVisitor.setVisit(visitRepository.findVisitByVisitID(retrievedVisitor.getVisitID()));
         visitorRepository.save(retrievedVisitor);
