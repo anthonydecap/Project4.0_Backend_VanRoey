@@ -29,6 +29,11 @@ public class TrackerController {
         return trackerRepository.findTrackerByTrackerID(id);
     }
 
+    @GetMapping("/trackers/address/{address}")
+    public Tracker getTrackerByAddress(@PathVariable String address){
+        return trackerRepository.findTrackerByAddressAndStatus(address,true);
+    }
+
     @PostMapping("/trackers")
     public Tracker addTracker(@RequestBody Tracker tracker){
         trackerRepository.save(tracker);
@@ -58,4 +63,6 @@ public class TrackerController {
             return ResponseEntity.notFound().build();
         }
     }
+
+
 }
