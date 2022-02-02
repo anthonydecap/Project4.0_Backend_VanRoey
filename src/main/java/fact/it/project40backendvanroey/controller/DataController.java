@@ -44,6 +44,7 @@ public class DataController {
     public Data addData(@RequestBody Data data){
         data.setTracker(trackerRepository.findTrackerByTrackerID(data.getTrackerID()));
         data.setVisitor(visitorRepository.findVisitorByVisitorID(data.getVisitorID()));
+        data.setTime(java.time.LocalDateTime.now());
         dataRepository.save(data);
         return data;
     }
