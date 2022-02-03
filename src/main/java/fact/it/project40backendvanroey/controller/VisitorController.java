@@ -39,6 +39,17 @@ public class VisitorController {
         return list;
     }
 
+    @GetMapping("/visitors/visit/{id}")
+    public List<Visitor> getVisitorByVisitID(@PathVariable int id){
+        Visit visit = visitRepository.getById(id);
+        List<Visitor> list = visitorRepository.findVisitorByVisit(visit);
+
+        list.forEach((visitor) -> visitor.setTagID(visitor.getTag().getTagID()));
+        list.forEach((visitor) -> visitor.setVisitID(visitor.getVisit().getVisitID()));
+
+        return list;
+    }
+
     @GetMapping("/visitors/{id}")
     public Visitor getVisitorByVisitorID(@PathVariable int id){
         Visitor visitor = visitorRepository.findVisitorByVisitorID(id);
