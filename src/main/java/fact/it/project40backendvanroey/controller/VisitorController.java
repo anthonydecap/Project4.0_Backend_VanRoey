@@ -41,7 +41,7 @@ public class VisitorController {
 
     @GetMapping("/visitors/visit/{id}")
     public List<Visitor> getVisitorByVisitID(@PathVariable int id){
-        Visit visit = visitRepository.getById(id);
+        Visit visit = visitRepository.findVisitByVisitID(id);
         List<Visitor> list = visitorRepository.findVisitorByVisit(visit);
 
         list.forEach((visitor) -> visitor.setTagID(visitor.getTag().getTagID()));
