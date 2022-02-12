@@ -24,7 +24,7 @@ public class VisitController {
 
     @GetMapping("/visits")
     public List<Visit> getVisits() {
-        List<Visit> list = visitRepository.findAll();
+        List<Visit> list = visitRepository.findAllByOrderByDateAsc();
         list.forEach((visit) -> visit.setCompanyID(visit.getCompany().getCompanyID()));
 
         return list;
