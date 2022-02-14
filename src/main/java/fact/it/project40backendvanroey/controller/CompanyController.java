@@ -44,8 +44,8 @@ public class CompanyController {
     }
 
     @DeleteMapping("/companies/{id}")
-    public ResponseEntity deleteCompany(@PathVariable int companyID){
-        Company company = companyRepository.findCompanyByCompanyID(companyID);
+    public ResponseEntity deleteCompany(@PathVariable int id){
+        Company company = companyRepository.findCompanyByCompanyID(id);
 
         if(company!=null){
             companyRepository.delete(company);
