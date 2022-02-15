@@ -53,15 +53,14 @@ public class TrackerController {
     }
 
     @DeleteMapping("/trackers/{id}")
-    public ResponseEntity deleteTracker(@PathVariable int trackerID){
+    public List<Tracker> deleteTracker(@PathVariable int trackerID){
         Tracker tracker = trackerRepository.findTrackerByTrackerID(trackerID);
 
-        if(tracker!=null){
+        if (tracker!=null){
             trackerRepository.delete(tracker);
-            return ResponseEntity.ok().build();
-        }else{
-            return ResponseEntity.notFound().build();
         }
+
+        return trackerRepository.findAll();
     }
 
 
