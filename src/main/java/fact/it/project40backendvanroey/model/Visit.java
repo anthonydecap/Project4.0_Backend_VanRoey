@@ -14,9 +14,6 @@ public class Visit {
     @Transient
     private int companyID;
 
-    @Transient
-    private List<Visitor> visitors;
-
     private String email;
 
     private LocalDateTime date;
@@ -82,13 +79,5 @@ public class Visit {
 
     public void setCompanyID(int companyID) {
         this.companyID = companyID;
-    }
-
-    public List<Visitor> getVisitors() {
-        return visitors;
-    }
-
-    public void setVisitors(List<Visitor> visitors) {
-        this.visitors = visitors;
     }
 }
