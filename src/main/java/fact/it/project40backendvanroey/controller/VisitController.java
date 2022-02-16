@@ -3,17 +3,14 @@ package fact.it.project40backendvanroey.controller;
 import fact.it.project40backendvanroey.model.Administrator;
 import fact.it.project40backendvanroey.model.Company;
 import fact.it.project40backendvanroey.model.Visit;
-import fact.it.project40backendvanroey.model.Visitor;
 import fact.it.project40backendvanroey.repository.CompanyRepository;
 import fact.it.project40backendvanroey.repository.VisitRepository;
-import fact.it.project40backendvanroey.repository.VisitorRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.PostConstruct;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -23,9 +20,6 @@ public class VisitController {
     private VisitRepository visitRepository;
 
     @Autowired
-    private VisitorRepository visitorRepository;
-
-    @Autowired
     private CompanyRepository companyRepository;
 
     @GetMapping("/visits")
@@ -33,8 +27,6 @@ public class VisitController {
         List<Visit> list = visitRepository.findAllByOrderByDateAsc();
         list.forEach((visit) -> visit.setCompanyID(visit.getCompany().getCompanyID()));
 
-        List<Visitor> list2 = new ArrayList<>();
-        list.forEach((visit) -> visit.setVisitors(list2));
         return list;
     }
 
